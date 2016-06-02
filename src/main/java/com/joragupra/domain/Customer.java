@@ -1,4 +1,4 @@
-package com.joragupra.users;
+package com.joragupra.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,6 +44,10 @@ public class Customer {
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
+    }
+
+    public Long id() {
+        return id;
     }
 
     public String firstName() {

@@ -11,7 +11,7 @@ public class PersistenceManager {
     private EntityManagerFactory emFactory;
 
     private PersistenceManager() {
-        emFactory = Persistence.createEntityManagerFactory("users-persistence");
+        emFactory = Persistence.createEntityManagerFactory("customers-persistence");
     }
 
     public static PersistenceManager getInstance() {

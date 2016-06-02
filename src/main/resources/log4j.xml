@@ -12,6 +12,9 @@
     <category name="org.hibernate">
         <priority value="info"/>
     </category>
+    <category name="org.glassfish.jersey">
+        <priority value="info"/>
+    </category>
     <category name="liquibase">
         <priority value="info"/>
     </category>

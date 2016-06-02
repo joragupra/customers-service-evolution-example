@@ -1,4 +1,4 @@
-package com.joragupra.users;
+package com.joragupra.domain;
 
 import com.joragupra.persistence.DatabaseInitializer;
 import org.junit.BeforeClass;

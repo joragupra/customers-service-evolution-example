@@ -25,7 +25,7 @@ public class DatabaseInitializer {
 
     public void setUp(String contexts) {
         try {
-            LOG.info("Initializing and updating database...");
+            LOG.info("Updating database...");
             ResourceAccessor resourceAccessor = new FileSystemResourceAccessor();
             Class.forName("org.postgresql.Driver");
 

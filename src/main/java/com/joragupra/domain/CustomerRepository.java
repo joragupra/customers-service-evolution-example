@@ -1,4 +1,4 @@
-package com.joragupra.users;
+package com.joragupra.domain;
 
 public interface CustomerRepository {
 
