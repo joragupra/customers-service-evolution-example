@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="general-001" author="joragupra">
+        <createSequence cycle="true"
+                        incrementBy="1"
+                        maxValue="10000000"
+                        minValue="1"
+                        schemaName="public"
+                        sequenceName="hibernate_sequence"
+                        startValue="1"/>
+    </changeSet>
+    <changeSet id="customer-001" author="joragupra">
+
+        <comment>User management</comment>
+
+        <createTable tableName="customer" schemaName="public">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false"
+                             primaryKeyName="pk_users" />
+            </column>
+            <column name="first_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="street_name" type="text"/>
+            <column name="street_number" type="text"/>
+            <column name="postal_code" type="text"/>
+            <column name="city" type="text"/>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
