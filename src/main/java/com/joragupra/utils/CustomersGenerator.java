@@ -62,7 +62,7 @@ public class CustomersGenerator {
             final String city = takeRandomFrom(CITY_POOL);
             CustomerService.instance()
                            .create(new Customer(firstName, lastName, streetName, "" + streetNumber, "" + postalCode,
-                                                city
+                                                city, null
                            ));
         } else {
             CustomerService.instance().create(new Customer(firstName, lastName));

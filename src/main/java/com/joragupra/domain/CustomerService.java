@@ -1,5 +1,7 @@
 package com.joragupra.domain;
 
+import java.util.Date;
+
 public class CustomerService {
 
     private static CustomerService INSTANCE;
@@ -28,7 +30,7 @@ public class CustomerService {
             throw new IllegalArgumentException("No customer found with ID " + customerId);
         }
 
-        customer.updateAddress(newStreetName, newStringNumber, newPostalCode, newCity);
+        customer.updateAddress(newStreetName, newStringNumber, newPostalCode, newCity, new Date());
         this.repository.save(customer);
         return customer;
     }
