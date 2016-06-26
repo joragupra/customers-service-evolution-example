@@ -37,4 +37,19 @@
 
     </changeSet>
 
+    <changeSet id="customer-002" author="joragupra">
+
+        <comment>Add address change date in customer table</comment>
+
+        <addColumn tableName="customer">
+            <column name="address_since" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="customer" columnName="address_since"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
