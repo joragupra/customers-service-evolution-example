@@ -6,7 +6,7 @@ class CustomerMapper {
 
     static CustomerDto fromDomainToDto(Customer c) {
         return new CustomerDto(c.firstName(), c.lastName(),
-                               new AddressDto(c.streetName(), c.streetNumber(), c.postalCode(), c.city())
+                               new AddressDto(c.streetName(), c.streetNumber(), c.postalCode(), c.city(), c.addressSince())
         );
     }
 

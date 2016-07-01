@@ -1,6 +1,7 @@
 package com.joragupra.rest;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 @XmlRootElement
 public class AddressDto {
@@ -13,14 +14,21 @@ public class AddressDto {
 
     private String city;
 
+    private Date inUseSince;
+
     public AddressDto() {
     }
 
     public AddressDto(String streetName, String streetNumber, String postalCode, String city) {
+        this(streetName, streetNumber, postalCode, city, null);
+    }
+
+    public AddressDto(String streetName, String streetNumber, String postalCode, String city, Date inUseSince) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
+        this.inUseSince = inUseSince;
     }
 
     public String getStreetName() {
@@ -53,5 +61,13 @@ public class AddressDto {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Date getInUseSince() {
+        return inUseSince;
+    }
+
+    public void setInUseSince(Date inUseSince) {
+        this.inUseSince = inUseSince;
     }
 }
