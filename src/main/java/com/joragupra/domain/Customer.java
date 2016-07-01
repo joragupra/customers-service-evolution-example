@@ -1,10 +1,9 @@
 package com.joragupra.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "customer")
 public class Customer {
@@ -26,6 +25,9 @@ public class Customer {
     private String city;
     @Column(name = "address_since")
     private Date addressSince;
+
+    @Transient
+    private List<Address> addressHistory = new ArrayList<>();
 
     public Customer() {
     }
@@ -54,6 +56,8 @@ public class Customer {
         this.postalCode = postalCode;
         this.city = city;
         this.addressSince = addressChangeDate;
+
+        this.addressHistory.add(new Address(streetName(), streetNumber(), postalCode(), city(), addressSince()));
     }
 
     public Long id() {
@@ -66,6 +70,16 @@ public class Customer {
 
     public String lastName() {
         return lastName;
+    }
+
+    public Address currentAddress() {
+        return new Address(streetName(), streetNumber(), postalCode(), city(), addressSince());
+    }
+
+    public List<Address> addressHistory() {
+        List<Address> addressHistoryCopy = new ArrayList<>();
+        addressHistoryCopy.add(new Address(streetName(), streetNumber(), postalCode(), city(), addressSince()));
+        return addressHistoryCopy;
     }
 
     public String streetName() {
