@@ -80,5 +80,60 @@
 
     </changeSet>
 
+    <changeSet id="customer-004" author="joragupra">
+        <comment>Migrate address data from customer table to address table.</comment>
+
+        <sql>
+            WITH caddresses_old_format AS (SELECT c.* FROM customer c LEFT JOIN address a ON a.customer_id = c.id
+            WHERE (c.street_name IS NOT NULL OR c.street_number IS NOT NULL OR c.postal_code IS NOT NULL OR c.city IS NOT NULL)
+               AND a.id IS NULL)
+            INSERT INTO address (
+               id,
+               street_name,
+               street_number,
+               postal_code,
+               city,
+               address_since,
+               customer_id)
+            SELECT
+               nextval('address_id_seq'),
+               caddresses_old_format.street_name,
+               caddresses_old_format.street_number,
+               caddresses_old_format.postal_code,
+               caddresses_old_format.city,
+               caddresses_old_format.address_since,
+               caddresses_old_format.id
+            FROM caddresses_old_format;
+        </sql>
+
+        <sql>
+            WITH caddresses_not_updated AS (SELECT c.* FROM customer c LEFT JOIN address a ON a.customer_id = c.id
+            WHERE (c.street_name IS NOT NULL OR c.street_number IS NOT NULL OR c.postal_code IS NOT NULL OR c.city IS NOT NULL)
+               AND a.id IS NOT NULL AND NOT exists(SELECT * FROM address a2 WHERE a2.customer_id = c.id AND a2.address_since > a.address_since)
+               AND c.address_since > a.address_since)
+            INSERT INTO address (
+               id,
+               street_name,
+               street_number,
+               postal_code,
+               city,
+               address_since,
+               customer_id)
+            SELECT
+               nextval('address_id_seq'),
+               caddresses_not_updated.street_name,
+               caddresses_not_updated.street_number,
+               caddresses_not_updated.postal_code,
+               caddresses_not_updated.city,
+               caddresses_not_updated.address_since,
+               caddresses_not_updated.id
+            FROM caddresses_not_updated;
+        </sql>
+
+        <rollback>
+            <!-- no rollback -->
+        </rollback>
+
+    </changeSet>
 
 </databaseChangeLog>
