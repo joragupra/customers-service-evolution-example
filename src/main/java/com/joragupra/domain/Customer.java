@@ -25,9 +25,9 @@ public class Customer {
     private String city;
     @Column(name = "address_since")
     private Date addressSince;
-
-    @Transient
-    private List<Address> addressHistory = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private List<Address> addressHistory;// = new ArrayList<>();
 
     public Customer() {
     }
@@ -47,6 +47,7 @@ public class Customer {
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.addressHistory = new ArrayList<>();
         updateAddress(streetName, streetNumber, postalCode, city, addressSince);
     }
 
@@ -77,8 +78,7 @@ public class Customer {
     }
 
     public List<Address> addressHistory() {
-        List<Address> addressHistoryCopy = new ArrayList<>();
-        addressHistoryCopy.add(new Address(streetName(), streetNumber(), postalCode(), city(), addressSince()));
+        List<Address> addressHistoryCopy = new ArrayList<>(this.addressHistory);
         return addressHistoryCopy;
     }
 

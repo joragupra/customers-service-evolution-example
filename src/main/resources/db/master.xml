@@ -52,4 +52,33 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="customer-003" author="joragupra">
+
+        <comment>Address history management</comment>
+
+        <createTable tableName="address" schemaName="public">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false"
+                             primaryKeyName="pk_addresses" />
+            </column>
+            <column name="street_name" type="text"/>
+            <column name="street_number" type="text"/>
+            <column name="postal_code" type="text"/>
+            <column name="city" type="text"/>
+            <column name="address_since" type="timestamp"/>
+            <column name="customer_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="address" baseColumnNames="customer_id" constraintName="customer_x_addresses"
+                                 referencedTableName="customer" referencedColumnNames="id"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="address" constraintName="customer_x_addresses"/>
+
+            <dropTable tableName="address"/>
+        </rollback>
+
+    </changeSet>
+
+
 </databaseChangeLog>

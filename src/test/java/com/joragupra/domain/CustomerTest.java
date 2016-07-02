@@ -28,5 +28,8 @@ public class CustomerTest {
         assertThat(customer.city(), is(newCity));
         assertThat(customer.addressSince(), is(addressChangeDate));
 
+        assertThat(customer.addressHistory().size(), is(2));
+
     }
+
 }
