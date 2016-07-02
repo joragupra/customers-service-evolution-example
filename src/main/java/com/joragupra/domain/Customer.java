@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.Comparator.comparing;
+
 @Entity(name = "customer")
 public class Customer {
 
@@ -33,7 +35,9 @@ public class Customer {
     }
 
     public Customer(String firstName, String lastName) {
-        this(firstName, lastName, null, null, null, null, null);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.addressHistory = new ArrayList<>();
     }
 
     public Customer(
@@ -45,20 +49,12 @@ public class Customer {
     public Customer(
             String firstName, String lastName, String streetName, String streetNumber, String postalCode, String city, Date addressSince
     ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.addressHistory = new ArrayList<>();
+        this(firstName, lastName);
         updateAddress(streetName, streetNumber, postalCode, city, addressSince);
     }
 
     public void updateAddress(String streetName, String streetNumber, String postalCode, String city, Date addressChangeDate) {
-        this.streetName = streetName;
-        this.streetNumber = streetNumber;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.addressSince = addressChangeDate;
-
-        this.addressHistory.add(new Address(streetName(), streetNumber(), postalCode(), city(), addressSince()));
+        this.addressHistory.add(new Address(streetName, streetNumber, postalCode, city, addressChangeDate));
     }
 
     public Long id() {
@@ -74,7 +70,7 @@ public class Customer {
     }
 
     public Address currentAddress() {
-        return new Address(streetName(), streetNumber(), postalCode(), city(), addressSince());
+        return addressHistory().stream().sorted(comparing(Address::addressSince).reversed()).findFirst().get();
     }
 
     public List<Address> addressHistory() {
@@ -83,22 +79,22 @@ public class Customer {
     }
 
     public String streetName() {
-        return streetName;
+        return currentAddress().streetName();
     }
 
     public String streetNumber() {
-        return streetNumber;
+        return currentAddress().streetNumber();
     }
 
     public String postalCode() {
-        return postalCode;
+        return currentAddress().postalCode();
     }
 
     public String city() {
-        return city;
+        return currentAddress().city();
     }
 
     public Date addressSince() {
-        return addressSince;
+        return currentAddress().addressSince();
     }
 }
