@@ -136,4 +136,44 @@
 
     </changeSet>
 
+    <changeSet id="customer-005" author="joragupra">
+
+        <comment>Delete columns for address information from customer table.</comment>
+
+        <dropColumn tableName="customer" columnName="street_name"/>
+        <dropColumn tableName="customer" columnName="street_number"/>
+        <dropColumn tableName="customer" columnName="postal_code"/>
+        <dropColumn tableName="customer" columnName="city"/>
+        <dropColumn tableName="customer" columnName="address_since"/>
+
+        <rollback>
+            <addColumn tableName="customer">
+                <column name="street_name" type="text">
+                    <constraints nullable="true"/>
+                </column>
+            </addColumn>
+            <addColumn tableName="customer">
+                <column name="street_number" type="text">
+                    <constraints nullable="true"/>
+                </column>
+            </addColumn>
+            <addColumn tableName="customer">
+                <column name="postal_code" type="text">
+                    <constraints nullable="true"/>
+                </column>
+            </addColumn>
+            <addColumn tableName="customer">
+                <column name="city" type="text">
+                    <constraints nullable="true"/>
+                </column>
+            </addColumn>
+            <addColumn tableName="customer">
+                <column name="address_since" type="timestamp">
+                    <constraints nullable="true"/>
+                </column>
+            </addColumn>
+        </rollback>
+
+    </changeSet>
+
 </databaseChangeLog>
