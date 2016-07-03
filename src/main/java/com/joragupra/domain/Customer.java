@@ -17,16 +17,6 @@ public class Customer {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "street_name")
-    private String streetName;
-    @Column(name = "street_number")
-    private String streetNumber;
-    @Column(name = "postal_code")
-    private String postalCode;
-    @Column(name = "city")
-    private String city;
-    @Column(name = "address_since")
-    private Date addressSince;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private List<Address> addressHistory;// = new ArrayList<>();
