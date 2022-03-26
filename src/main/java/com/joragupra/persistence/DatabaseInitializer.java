@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import liquibase.Liquibase;
 import liquibase.database.core.PostgresDatabase;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.logging.LogFactory;
 import liquibase.resource.FileSystemResourceAccessor;
 import liquibase.resource.ResourceAccessor;
 import org.slf4j.Logger;
@@ -33,7 +32,6 @@ public class DatabaseInitializer {
 
             PostgresDatabase postgresDatabase = new PostgresDatabase();
             postgresDatabase.setConnection(new JdbcConnection(holdingConnection));
-            LogFactory.getLogger().setLogLevel("severe");
             liquibase = new Liquibase(CHANGE_LOG, resourceAccessor, postgresDatabase.getConnection());
             liquibase.update(contexts);
             postgresDatabase.getConnection().close();
